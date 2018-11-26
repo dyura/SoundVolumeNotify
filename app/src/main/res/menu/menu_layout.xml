@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:SoundVolumeNotify="http://schemas.android.com/tools">
+        <!-- display info-->
+        <item android:id="@+id/display_info"
+            android:title="@string/display_info"
+            />
+</menu>

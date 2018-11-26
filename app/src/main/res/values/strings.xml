@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SoundVolumeNotify</string>
+    <string name="menu_settings">Settings</string>
+    <string name="btCancel">Cancel Repeating Timer</string>
+    <string name="btStart">Start Repeating Timer</string>
+    <string name="display_info">Information</string>
+    <string name="quit_application_by_force_stop">Quit application\n (by Force Stop)</string>
+</resources>
