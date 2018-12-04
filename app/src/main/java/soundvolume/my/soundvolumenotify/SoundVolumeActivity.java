@@ -37,9 +37,9 @@ public class SoundVolumeActivity extends AppCompatActivity {
         Context context = this.getApplicationContext();
         SetTimer(context);
 
-        button = (Button) findViewById(R.id.btQuit);
+//        button = (Button) findViewById(R.id.btQuit);
 //        button.setText(Html.fromHtml("Quit application<br><font size=\"10\">(by Force Stop)</font>"));
-        button.setText("Quit application\n(by Force Stop)");
+//        button.setText("Quit application\n(by Force Stop)");
 
     }
     @Override
@@ -56,7 +56,7 @@ public class SoundVolumeActivity extends AppCompatActivity {
                 Toast.makeText(context, "show info...", Toast.LENGTH_LONG).show();
                 AlertDialog alertDialog = new AlertDialog.Builder(SoundVolumeActivity.this).create();
                 alertDialog.setTitle("What is this app for:");
-                alertDialog.setMessage("Application info ....");
+                alertDialog.setMessage(getString(R.string.info));
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
