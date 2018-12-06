@@ -7,7 +7,8 @@
     <string name="quit_application_by_force_stop">Quit application\n (by Force Stop)</string>
     <string name="info">Application info:\n
         The application creates a notification diplaying the volume level of Ring,Alarm, and Media.\n
-        Volumes are checked every minute. There are three options:\n
+        Volumes are checked every minute. The icon displays Ring|Alarm volumes. When low Media volume the separator is !!\n
+        There are three options:\n
         -Start Repeating Timer (automatically selected on application start)\n
         -Stop Repeating Timer (you ca nstart it again later)\n
         -Quit the application via system force stop menu.\n
