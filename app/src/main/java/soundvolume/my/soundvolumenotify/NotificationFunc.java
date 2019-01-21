@@ -91,6 +91,7 @@ public class NotificationFunc {
             str=currentVolume+"!!"+currentAlarm;
         Bitmap bitmap =createBitmapFromString(str);
         Icon icn1;
+        /* temporary commented out */
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             int height = bitmap.getHeight();
             int width = bitmap.getWidth();
@@ -105,8 +106,8 @@ public class NotificationFunc {
 
             Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 32, 32, false);
 
-            icn1 = Icon.createWithBitmap(bitmap);  // !!
-            bitmap= scaledBitmap;
+            icn1 = Icon.createWithBitmap(bitmap);  // set samll icon
+            bitmap= scaledBitmap;   // prepare for the large icon
         }
         else {
             icn1 = Icon.createWithBitmap(bitmap);
