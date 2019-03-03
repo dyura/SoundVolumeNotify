@@ -124,6 +124,7 @@ public class NotificationFunc {
         builder.setContentText("Be aware\n");
 
         builder.setPriority(Notification.PRIORITY_MAX);
+        builder.setOnlyAlertOnce(true);
         builder.setOngoing(true);
         builder.setContentIntent(pendingIntent);
 
