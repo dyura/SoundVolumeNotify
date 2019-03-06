@@ -38,9 +38,8 @@ public class NotificationFunc {
         final int currentVolumeALARM = audio.getStreamVolume(AudioManager.STREAM_ALARM);
         final int currentVolumeMUSIC = audio.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-        String next_tag =String.valueOf(currentVolumeRING) +  String.valueOf(currentVolumeALARM) + String.valueOf(currentVolumeMUSIC);
-        Log.d("notification:", "next_tag: "+next_tag.trim());
-        Log.d("notification:", "next_tag no trim: "+next_tag);
+//        String next_tag =String.valueOf(currentVolumeRING) +  String.valueOf(currentVolumeALARM) + String.valueOf(currentVolumeMUSIC);
+        String next_title ="SVN:Ring: "+currentVolumeRING+" Alarm: "+currentVolumeALARM+" Media: "+currentVolumeMUSIC;
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         StatusBarNotification[] activeNotifications = notificationManager.getActiveNotifications();
@@ -51,29 +50,32 @@ public class NotificationFunc {
 //            Log.d("notification:", String.valueOf(currentVolumeRING) +  String.valueOf(currentVolumeALARM) + String.valueOf(currentVolumeMUSIC));
 //        }
 
-        String current_tag="";
+//        String current_tag="";
+        String current_title="";
         switch (activeNotifications.length){
             case  0:
                 break;
             case 1:
-                current_tag=activeNotifications[0].getTag();
+//                current_tag=activeNotifications[0].getTag();
+                current_title = activeNotifications[0].getNotification().extras.getString("android.title");
+                Log.d("notification:",current_title);//getNotification().toString();
                 break;
             default:
                 Log.e("notification:","Multiple notificatons");
                 Toast.makeText(context,"Multiple notificatons, report the problem",Toast.LENGTH_LONG).show();
-                current_tag=activeNotifications[0].getTag();
+                current_title = activeNotifications[0].getNotification().extras.getString("android.title");
         }
-        Log.d("notification:", "current_tag: "+current_tag.trim());
-        Log.d("notification:", "current_tag no trim: "+current_tag);
+        Log.d("notification:", "current_title: "+current_title.trim());
+        Log.d("notification:", "current_title no trim: "+current_title);
 
-        if (current_tag.compareTo(next_tag)!=0){
+        if (current_title.compareTo(next_title)!=0){
 //            Toast.makeText(context, "Volume now " + currentVolumeMUSIC + " "
 //                    + currentVolumeRING + " " + currentVolumeALARM, Toast.LENGTH_LONG).show();
             Log.d(TAG, "Volume now " + currentVolumeMUSIC + " "
                     + currentVolumeRING + " " + currentVolumeALARM);
 
-            if (current_tag.length()!=0)
-                 cancelNotification(context,current_tag,NOTIFICATION_ID);
+//            if (current_tag.length()!=0)
+//                 cancelNotification(context,current_tag,NOTIFICATION_ID);
             sendNotification(context, currentVolumeRING, currentVolumeALARM, currentVolumeMUSIC, NOTIFICATION_ID);
         }
     }
@@ -123,7 +125,8 @@ public class NotificationFunc {
         builder.setContentTitle("SVN:Ring: "+currentVolume+" Alarm: "+currentAlarm+" Media: "+currentMusic);
         builder.setContentText("Be aware\n");
 
-        builder.setPriority(Notification.PRIORITY_MAX);
+//        builder.setPriority(Notification.PRIORITY_MAX);
+        builder.setPriority(Notification.PRIORITY_DEFAULT);
         builder.setOnlyAlertOnce(true);
         builder.setOngoing(true);
         builder.setContentIntent(pendingIntent);
@@ -140,8 +143,9 @@ public class NotificationFunc {
             notificationManager.createNotificationChannel(mChannel);
         }
 //        notificationManager.notify(NOTIFICATION_ID, builder.build());
-        String tag=String.valueOf(currentVolume) +  String.valueOf(currentAlarm) + String.valueOf(currentMusic);
-        notificationManager.notify(tag,NOTIFICATION_ID, builder.build());
+//        String tag=String.valueOf(currentVolume) +  String.valueOf(currentAlarm) + String.valueOf(currentMusic);
+//        notificationManager.notify(tag,NOTIFICATION_ID, builder.build());
+        notificationManager.notify(NOTIFICATION_ID, builder.build());
     }
     public Bitmap createBitmapFromString(String string) {
         Paint paint = new Paint();
