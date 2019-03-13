@@ -125,10 +125,10 @@ public class NotificationFunc {
         builder.setContentTitle("SVN:Ring: "+currentVolume+" Alarm: "+currentAlarm+" Media: "+currentMusic);
         builder.setContentText("Be aware\n");
 
-//        builder.setPriority(Notification.PRIORITY_MAX);
-        builder.setPriority(Notification.PRIORITY_DEFAULT);
-        builder.setOnlyAlertOnce(true);
+        builder.setPriority(Notification.PRIORITY_MAX);
+//        builder.setPriority(Notification.PRIORITY_DEFAULT);
         builder.setOngoing(true);
+        builder.setOnlyAlertOnce(true);
         builder.setContentIntent(pendingIntent);
 
 
@@ -136,7 +136,7 @@ public class NotificationFunc {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             String CHANNEL_ID = "volume_ind_01";
             CharSequence name = "volume notification";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
+            int importance = NotificationManager.IMPORTANCE_DEFAULT  ; //IMPORTANCE_HIGH;
             NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
             mChannel.setSound(null, null);
             builder.setChannelId(CHANNEL_ID);
