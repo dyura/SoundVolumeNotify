@@ -95,7 +95,6 @@ public class SoundVolumeActivity extends AppCompatActivity {
        intent.putExtra("name","main".toString());
        intent.putExtra(ONE_TIME, Boolean.FALSE);
        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
-       //After after 30 seconds
        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 , pi);
        Toast.makeText(context, "STARTING...", Toast.LENGTH_LONG).show();
        sn.sendNotification(context,NOTIFICATION_ID);

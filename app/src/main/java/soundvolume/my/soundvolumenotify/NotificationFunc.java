@@ -64,9 +64,11 @@ public class NotificationFunc {
                 Log.e("notification:","Multiple notificatons");
                 Toast.makeText(context,"Multiple notificatons, report the problem",Toast.LENGTH_LONG).show();
                 current_title = activeNotifications[0].getNotification().extras.getString("android.title");
+
         }
         Log.d("notification:", "current_title: "+current_title.trim());
         Log.d("notification:", "current_title no trim: "+current_title);
+        Log.d("notification:", "next_title no trim: "+next_title);
 
         if (current_title.compareTo(next_title)!=0){
 //            Toast.makeText(context, "Volume now " + currentVolumeMUSIC + " "
@@ -88,27 +90,22 @@ public class NotificationFunc {
         Notification.Builder builder = new Notification.Builder(context);
         String str;
         if (currentMusic>3)
-            str=currentVolume+"|"+currentAlarm;
+            str=currentVolume+":"+currentAlarm;
         else
-            str=currentVolume+"!!"+currentAlarm;
+            str=currentVolume+"_"+currentAlarm;
         Bitmap bitmap =createBitmapFromString(str);
         Icon icn1;
         /* temporary commented out */
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             int height = bitmap.getHeight();
             int width = bitmap.getWidth();
-            float scaleWidth = ((float) 32) / width;
-            float scaleHeight = ((float) 21) / height;
-            // CREATE A MATRIX FOR THE MANIPULATION
-            Matrix matrix = new Matrix();
-            // RESIZE THE BIT MAP
-            matrix.postScale(scaleWidth, scaleHeight);
-            Bitmap bitmap2 = Bitmap.createBitmap(
-                    bitmap, 0, 0, 32, 21, matrix, false);
 
-            Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 32, 32, false);
+//            Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 32, 32, false);
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 40, 40, false);
+            Bitmap scaledBitmap2 = Bitmap.createScaledBitmap(bitmap, 70, 70, false);
 
-            icn1 = Icon.createWithBitmap(bitmap);  // set samll icon
+//            icn1 = Icon.createWithBitmap(bitmap);  // set samll icon
+            icn1 = Icon.createWithBitmap(scaledBitmap2);  // set samll icon
             bitmap= scaledBitmap;   // prepare for the large icon
         }
         else {
@@ -130,6 +127,7 @@ public class NotificationFunc {
         builder.setOngoing(true);
         builder.setOnlyAlertOnce(true);
         builder.setContentIntent(pendingIntent);
+        builder.setAutoCancel(false);
 
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
@@ -150,7 +148,8 @@ public class NotificationFunc {
     public Bitmap createBitmapFromString(String string) {
         Paint paint = new Paint();
         paint.setAntiAlias(true);
-        paint.setTextSize(50); // size is in pixels
+//        paint.setTextSize(50); // size is in pixels
+        paint.setTextSize(70); // size is in pixels
 
         Rect textBounds = new Rect();
         paint.getTextBounds(string, 0, string.length(), textBounds);
