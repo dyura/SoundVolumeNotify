@@ -13,11 +13,12 @@
         android:theme="@style/AppTheme">
     <!--android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">-->
     <!--   android:theme="@style/Theme.AppCompat.Light.NoActionBar"-->
-        <activity android:name=".SoundVolumeActivity">
+        <activity android:name=".SoundVolumeActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <!--category android:name="android.intent.category.LAUNCHER" /-->
             </intent-filter>
         </activity>
         <!-- Broadcast receiver -->
@@ -28,7 +29,9 @@
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
     </application>
