@@ -68,5 +68,4 @@
         android:layout_height="wrap_content"
         android:max="7"
         android:thumbTint="@color/colorPrimary"/>
-
 </LinearLayout>

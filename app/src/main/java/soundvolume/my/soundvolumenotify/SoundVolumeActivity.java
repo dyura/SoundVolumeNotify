@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.service.notification.StatusBarNotification;
@@ -91,6 +93,8 @@ public class SoundVolumeActivity extends AppCompatActivity {
         audio = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         //SeekBar mySeekBar=(SeekBar) findViewById(R.id.seekBar);
         seekBar.setProgress(audio.getStreamVolume(AudioManager.STREAM_RING));
+        seekBar.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
+        sn.sendNotification(context,NOTIFICATION_ID);
         //audio.getStreamVolume(AudioManager.STREAM_RING);
         //audio.setStreamVolume(STREAM_RING);
     }
@@ -115,7 +119,7 @@ public class SoundVolumeActivity extends AppCompatActivity {
        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 , pi);
        Toast.makeText(context, "STARTING...", Toast.LENGTH_LONG).show();
-       sn.sendNotification(context,NOTIFICATION_ID);
+//       sn.sendNotification(context,NOTIFICATION_ID);
    }
 
    public void CancelTimer(Context context)

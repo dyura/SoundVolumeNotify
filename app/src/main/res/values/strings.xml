@@ -6,13 +6,15 @@
     <string name="display_info">Information</string>
     <string name="quit_application_by_force_stop">Quit application\n (by Force Stop)</string>
     <string name="info">Application info:\n
-        The application creates a notification diplaying the volume level of Ring,Alarm, and Media.\n
-        Volumes are checked every minute. The icon displays Ring|Alarm volumes. When low Media volume the separator is !!\n
-        There are three options:\n
+        The application creates a notification diplaying the volume level of Ring, Alarm, and Media.\n
+        Volumes are being checked every minute. The icon displays Ring:Alarm volumes. When Media volume is low, the separator changes to  _\n
+        There are 4 options:\n
         -Start Repeating Timer (automatically selected on application start)\n
         -Stop Repeating Timer (you ca nstart it again later)\n
         -Quit the application via system force stop menu.\n
-        Unless you force stop, the application automatically start on boot.\n
+        -Adjust ring volume.\n
+        Every time when you open the application the notification is updated.\n
+        Unless you force stop, the application automatically starts on boot.\n
         Sources: https://github.com/dyura/SoundVolumeNotify
     </string>
 </resources>
