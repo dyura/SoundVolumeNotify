@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.service.notification.StatusBarNotification;
 import android.support.v7.app.AlertDialog;
@@ -18,7 +19,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.Toast;
+
+import static android.widget.SeekBar.*;
 
 public class SoundVolumeActivity extends AppCompatActivity {
     public static NotificationFunc sn = new NotificationFunc() ;
@@ -26,6 +31,9 @@ public class SoundVolumeActivity extends AppCompatActivity {
     final public static String ONE_TIME = "onetime";
     private AlarmManagerBroadcastReceiver checkSounds;
     private Button button;
+    SeekBar seekBar;
+    Context context;
+    AudioManager audio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +42,11 @@ public class SoundVolumeActivity extends AppCompatActivity {
         checkSounds = new AlarmManagerBroadcastReceiver();
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        Context context = this.getApplicationContext();
+        seekBar=(SeekBar)findViewById(R.id.seekBar);
+        seekBar.setOnSeekBarChangeListener(new mySeekBarListener());
+
+//        Context context = this.getApplicationContext();
+        context = this.getApplicationContext();
         SetTimer(context);
 
 //        button = (Button) findViewById(R.id.btQuit);
@@ -52,7 +64,7 @@ public class SoundVolumeActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.display_info:
                 // User chose the "Settings" item, show the app settings UI...
-                Context context = this.getApplicationContext();
+//                Context context = this.getApplicationContext();
                 Toast.makeText(context, "show info...", Toast.LENGTH_LONG).show();
                 AlertDialog alertDialog = new AlertDialog.Builder(SoundVolumeActivity.this).create();
                 alertDialog.setTitle("What is this app for:");
@@ -75,15 +87,21 @@ public class SoundVolumeActivity extends AppCompatActivity {
         super.onStart();
 //            button = (Button) findViewById(R.id.btStart);
 //            button.setEnabled(true);
+//        Context context = this.getApplicationContext();
+        audio = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        //SeekBar mySeekBar=(SeekBar) findViewById(R.id.seekBar);
+        seekBar.setProgress(audio.getStreamVolume(AudioManager.STREAM_RING));
+        //audio.getStreamVolume(AudioManager.STREAM_RING);
+        //audio.setStreamVolume(STREAM_RING);
     }
 
     public void startTimer(View view) {
-        Context context = this.getApplicationContext();
+//        Context context = this.getApplicationContext();
         SetTimer(context);
     }
 
     public void cancelTimer(View view) {
-        Context context = this.getApplicationContext();
+//        Context context = this.getApplicationContext();
         CancelTimer(context);
 //        button = (Button) findViewById(R.id.btStart);
 //        button.setEnabled(true);
@@ -116,5 +134,22 @@ public class SoundVolumeActivity extends AppCompatActivity {
         Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.parse("package:" + getPackageName()));
         startActivity(intent);
+    }
+
+    private class mySeekBarListener implements SeekBar.OnSeekBarChangeListener {
+
+        public void onProgressChanged(SeekBar seekBar, int progress,
+                                      boolean fromUser) {
+        }
+
+        public void onStartTrackingTouch(SeekBar seekBar) {}
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            Log.d("DEBUG", "Progress is: "+seekBar.getProgress());
+            audio.setStreamVolume(AudioManager.STREAM_RING,seekBar.getProgress(),0);
+            sn.sendNotification(context,NOTIFICATION_ID);
+        }
+
     }
 }
