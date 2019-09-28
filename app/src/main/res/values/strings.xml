@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SoundVolumeNotify</string>
+    <string name="app_name">Sound Volume Notifier</string>
     <string name="menu_settings">Settings</string>
     <string name="btCancel">Cancel Repeating Timer</string>
     <string name="btStart">Start Repeating Timer</string>
