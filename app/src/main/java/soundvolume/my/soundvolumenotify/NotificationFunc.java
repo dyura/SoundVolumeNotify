@@ -44,11 +44,6 @@ public class NotificationFunc {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         StatusBarNotification[] activeNotifications = notificationManager.getActiveNotifications();
         Log.d(TAG, "# notifications "+Integer.toString(activeNotifications.length));
-//        for(int i = 0; i < activeNotifications.length; i++) {
-//            Log.d("notification:", activeNotifications[i].toString());
-//            Log.d("notification:", activeNotifications[i].getTag());
-//            Log.d("notification:", String.valueOf(currentVolumeRING) +  String.valueOf(currentVolumeALARM) + String.valueOf(currentVolumeMUSIC));
-//        }
 
 //        String current_tag="";
         String current_title="";
@@ -76,8 +71,6 @@ public class NotificationFunc {
             Log.d(TAG, "Volume now " + currentVolumeMUSIC + " "
                     + currentVolumeRING + " " + currentVolumeALARM);
 
-//            if (current_tag.length()!=0)
-//                 cancelNotification(context,current_tag,NOTIFICATION_ID);
             sendNotification(context, currentVolumeRING, currentVolumeALARM, currentVolumeMUSIC, NOTIFICATION_ID);
         }
     }
@@ -100,11 +93,9 @@ public class NotificationFunc {
             int height = bitmap.getHeight();
             int width = bitmap.getWidth();
 
-//            Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 32, 32, false);
             Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 40, 40, false);
             Bitmap scaledBitmap2 = Bitmap.createScaledBitmap(bitmap, 70, 70, false);
 
-//            icn1 = Icon.createWithBitmap(bitmap);  // set samll icon
             icn1 = Icon.createWithBitmap(scaledBitmap2);  // set samll icon
             bitmap= scaledBitmap;   // prepare for the large icon
         }
@@ -140,9 +131,6 @@ public class NotificationFunc {
             builder.setChannelId(CHANNEL_ID);
             notificationManager.createNotificationChannel(mChannel);
         }
-//        notificationManager.notify(NOTIFICATION_ID, builder.build());
-//        String tag=String.valueOf(currentVolume) +  String.valueOf(currentAlarm) + String.valueOf(currentMusic);
-//        notificationManager.notify(tag,NOTIFICATION_ID, builder.build());
         notificationManager.notify(NOTIFICATION_ID, builder.build());
     }
     public Bitmap createBitmapFromString(String string) {
@@ -165,7 +153,6 @@ public class NotificationFunc {
     }
     public void cancelNotification(Context context, String tag,int NOTIFICATION_ID) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-//        notificationManager.cancel(NOTIFICATION_ID);
         notificationManager.cancel(tag,NOTIFICATION_ID);
     }
 }

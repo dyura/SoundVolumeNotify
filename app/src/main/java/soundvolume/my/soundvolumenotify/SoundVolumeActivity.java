@@ -47,13 +47,8 @@ public class SoundVolumeActivity extends AppCompatActivity {
         seekBar=(SeekBar)findViewById(R.id.seekBar);
         seekBar.setOnSeekBarChangeListener(new mySeekBarListener());
 
-//        Context context = this.getApplicationContext();
         context = this.getApplicationContext();
         SetTimer(context);
-
-//        button = (Button) findViewById(R.id.btQuit);
-//        button.setText(Html.fromHtml("Quit application<br><font size=\"10\">(by Force Stop)</font>"));
-//        button.setText("Quit application\n(by Force Stop)");
 
     }
     @Override
@@ -65,8 +60,6 @@ public class SoundVolumeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.display_info:
-                // User chose the "Settings" item, show the app settings UI...
-//                Context context = this.getApplicationContext();
                 Toast.makeText(context, "show info...", Toast.LENGTH_LONG).show();
                 AlertDialog alertDialog = new AlertDialog.Builder(SoundVolumeActivity.this).create();
                 alertDialog.setTitle("What is this app for:");
@@ -87,28 +80,18 @@ public class SoundVolumeActivity extends AppCompatActivity {
     }
     protected void onStart() {
         super.onStart();
-//            button = (Button) findViewById(R.id.btStart);
-//            button.setEnabled(true);
-//        Context context = this.getApplicationContext();
         audio = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        //SeekBar mySeekBar=(SeekBar) findViewById(R.id.seekBar);
         seekBar.setProgress(audio.getStreamVolume(AudioManager.STREAM_RING));
         seekBar.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
         sn.sendNotification(context,NOTIFICATION_ID);
-        //audio.getStreamVolume(AudioManager.STREAM_RING);
-        //audio.setStreamVolume(STREAM_RING);
     }
 
     public void startTimer(View view) {
-//        Context context = this.getApplicationContext();
         SetTimer(context);
     }
 
     public void cancelTimer(View view) {
-//        Context context = this.getApplicationContext();
         CancelTimer(context);
-//        button = (Button) findViewById(R.id.btStart);
-//        button.setEnabled(true);
     }
    public void SetTimer(Context context)
    {
@@ -119,7 +102,6 @@ public class SoundVolumeActivity extends AppCompatActivity {
        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 , pi);
        Toast.makeText(context, "STARTING...", Toast.LENGTH_LONG).show();
-//       sn.sendNotification(context,NOTIFICATION_ID);
    }
 
    public void CancelTimer(Context context)
