@@ -15,17 +15,17 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import static android.widget.SeekBar.*;
 
 public class SoundVolumeActivity extends AppCompatActivity {
     public static NotificationFunc sn = new NotificationFunc() ;
@@ -71,6 +71,19 @@ public class SoundVolumeActivity extends AppCompatActivity {
                             }
                         });
                 alertDialog.show();
+                return true;
+            case R.id.display_about:
+                TextView showText = new TextView(this);
+                showText.setText(getString(R.string.about));
+                showText.setTextIsSelectable(true);
+                showText.setTextSize(16);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+// Build the Dialog
+                builder.setView(showText)
+                        .setTitle("Sound Volume Notifier")
+                        .setCancelable(true)
+                        .show()
+                        .getWindow().setLayout(1600, 1000);
                 return true;
             default:
                 // If we got here, the user's action was not recognized.

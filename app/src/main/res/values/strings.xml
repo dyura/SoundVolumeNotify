@@ -6,16 +6,28 @@
     <string name="display_help">Help</string>
     <string name="display_about">About</string>
     <string name="quit_application_by_force_stop">Quit application\n (by Force Stop)</string>
-    <string name="help">Application info:\n
-        The application creates a notification diplaying the volume level of Ring, Alarm, and Media.\n
-        Volumes are being checked every minute. The icon displays Ring:Alarm volumes. When Media volume is low, the separator changes to  _\n
-        There are 4 options:\n
-        -Start Repeating Timer (automatically selected on application start)\n
-        -Stop Repeating Timer (you ca nstart it again later)\n
-        -Quit the application via system force stop menu.\n
-        -Adjust ring volume.\n
-        Every time when you open the application the notification is updated.\n
-        Unless you force stop, the application automatically starts on boot.\n
-        Sources: https://github.com/dyura/SoundVolumeNotify
+    <string name="help">The Sound Volume Notifier constantly informs the phone owner about the current volume level
+        of ring, alarm and media. When you start the application it shows a persistent notification in the status bar.
+        A notification icon is generated dynamically and displays the levels of the ring and the alarm.
+        The icon also indicates when the media volume is low. If the volume is less than 4, the separator
+        between the two numbers is changed from a colon to an underscore.\n
+        Once started the application is registered for automatic launch after restarting the phone. \n
+        The application uses a repeating timer and checks volumes every minute, updating the notification accordingly.\n
+        To pause the Notifier you need to CANCEL REPEATING TIMER. To resume you need to START REPEATING TIMER.\n
+        If the Notifier is paused, it will start again after the phone restart.
+        To completely disable the application you can tap QUIT APPLICATION and tap
+        Force stop in the Application Info screen.\n
+        \n
+        Tips.\n
+        - The application checks volumes immediately after its opening.
+        Thus, you don’t have to wait a minute to see the current volumes. Just open the Notifier.\n
+        - You can change the ring volume directly in this application.
+    </string>
+    <string name="about">\n
+        Version 1.0 (2019)\n\n
+        Author: Yury Dubinsky \n\n
+        Email: small.mobile.tools@gmail.com \n\n
+        This viewer is free and open source. \n\n https://github.com/dyura/SoundVolumeNotify \n\n\n
+        _______________________________________________________________________
     </string>
 </resources>
