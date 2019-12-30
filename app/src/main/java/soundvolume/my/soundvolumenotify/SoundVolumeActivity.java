@@ -76,14 +76,14 @@ public class SoundVolumeActivity extends AppCompatActivity {
                 TextView showText = new TextView(this);
                 showText.setText(getString(R.string.about));
                 showText.setTextIsSelectable(true);
-                showText.setTextSize(16);
+                showText.setTextSize(14);
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
 // Build the Dialog
                 builder.setView(showText)
                         .setTitle(getString(R.string.app_name))
                         .setCancelable(true)
-                        .show()
-                        .getWindow().setLayout(1600, 1000);
+                        .show();
+//                        .getWindow().setLayout(1600, 1000);
                 return true;
             default:
                 // If we got here, the user's action was not recognized.
