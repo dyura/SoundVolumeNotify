@@ -2,7 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:SoundVolumeNotify="http://schemas.android.com/tools">
         <!-- display info-->
-        <item android:id="@+id/display_info"
-            android:title="@string/display_info"
+        <item android:id="@+id/display_help"
+            android:title="@string/display_help"
+            />
+        <item android:id="@+id/display_about"
+            android:title="@string/display_about"
             />
 </menu>

@@ -42,9 +42,9 @@ public class SoundVolumeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sound_volume);
         checkSounds = new AlarmManagerBroadcastReceiver();
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        seekBar=(SeekBar)findViewById(R.id.seekBar);
+        seekBar=findViewById(R.id.seekBar);
         seekBar.setOnSeekBarChangeListener(new mySeekBarListener());
 
         context = this.getApplicationContext();
@@ -59,11 +59,11 @@ public class SoundVolumeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.display_info:
-                Toast.makeText(context, "show info...", Toast.LENGTH_LONG).show();
+            case R.id.display_help:
+//                Toast.makeText(context, "show info...", Toast.LENGTH_LONG).show();
                 AlertDialog alertDialog = new AlertDialog.Builder(SoundVolumeActivity.this).create();
-                alertDialog.setTitle("What is this app for:");
-                alertDialog.setMessage(getString(R.string.info));
+                alertDialog.setTitle("Help");
+                alertDialog.setMessage(getString(R.string.help));
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -97,7 +97,7 @@ public class SoundVolumeActivity extends AppCompatActivity {
    {
        AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
        Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
-       intent.putExtra("name","main".toString());
+       intent.putExtra("name","main");
        intent.putExtra(ONE_TIME, Boolean.FALSE);
        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 , pi);
