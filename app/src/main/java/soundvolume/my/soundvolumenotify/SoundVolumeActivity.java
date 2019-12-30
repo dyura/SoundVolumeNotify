@@ -80,7 +80,7 @@ public class SoundVolumeActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
 // Build the Dialog
                 builder.setView(showText)
-                        .setTitle("Sound Volume Notifier")
+                        .setTitle(getString(R.string.app_name))
                         .setCancelable(true)
                         .show()
                         .getWindow().setLayout(1600, 1000);
