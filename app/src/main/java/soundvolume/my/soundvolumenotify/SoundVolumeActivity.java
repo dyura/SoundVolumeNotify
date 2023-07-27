@@ -15,7 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
+//import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
