@@ -22,7 +22,7 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 
 
 /**
- * Created by yury on 12/08/18.
+ * Created by yury on 12/08/18. August 2018
  */
 
 public class NotificationFunc {
@@ -37,13 +37,15 @@ public class NotificationFunc {
         final int currentVolumeRING = audio.getStreamVolume(AudioManager.STREAM_RING);
         final int currentVolumeALARM = audio.getStreamVolume(AudioManager.STREAM_ALARM);
         final int currentVolumeMUSIC = audio.getStreamVolume(AudioManager.STREAM_MUSIC);
+        final int currentVolumeNOTIF = audio.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
 
 //        String next_tag =String.valueOf(currentVolumeRING) +  String.valueOf(currentVolumeALARM) + String.valueOf(currentVolumeMUSIC);
-        String next_title ="SVN:Ring: "+currentVolumeRING+" Alarm: "+currentVolumeALARM+" Media: "+currentVolumeMUSIC;
+        String next_title ="Ring: "+currentVolumeRING+" Alarm: "+currentVolumeALARM+" Media: "+currentVolumeMUSIC+
+                " Notif: "+currentVolumeNOTIF;
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         StatusBarNotification[] activeNotifications = notificationManager.getActiveNotifications();
-        Log.d(TAG, "# notifications "+Integer.toString(activeNotifications.length));
+//        Log.d(TAG, "# notifications "+Integer.toString(activeNotifications.length));
 
 //        String current_tag="";
         String current_title="";
@@ -53,7 +55,7 @@ public class NotificationFunc {
             case 1:
 //                current_tag=activeNotifications[0].getTag();
                 current_title = activeNotifications[0].getNotification().extras.getString("android.title");
-                Log.d("notification:",current_title);//getNotification().toString();
+//                Log.d("notification:",current_title);//getNotification().toString();
                 break;
             default:
                 Log.e("notification:","Multiple notificatons");
@@ -61,9 +63,9 @@ public class NotificationFunc {
                 current_title = activeNotifications[0].getNotification().extras.getString("android.title");
 
         }
-        Log.d("notification:", "current_title: "+current_title.trim());
-        Log.d("notification:", "current_title no trim: "+current_title);
-        Log.d("notification:", "next_title no trim: "+next_title);
+//        Log.d("notification:", "current_title: "+current_title.trim());
+//        Log.d("notification:", "current_title no trim: "+current_title);
+//        Log.d("notification:", "next_title no trim: "+next_title);
 
         if (current_title.compareTo(next_title)!=0){
 //            Toast.makeText(context, "Volume now " + currentVolumeMUSIC + " "
@@ -71,10 +73,10 @@ public class NotificationFunc {
             Log.d(TAG, "Volume now " + currentVolumeMUSIC + " "
                     + currentVolumeRING + " " + currentVolumeALARM);
 
-            sendNotification(context, currentVolumeRING, currentVolumeALARM, currentVolumeMUSIC, NOTIFICATION_ID);
+            sendNotification(context, currentVolumeRING, currentVolumeALARM, currentVolumeMUSIC, currentVolumeNOTIF,  NOTIFICATION_ID);
         }
     }
-    public void sendNotification(Context context, int currentVolume, int currentAlarm, int currentMusic, int NOTIFICATION_ID )  {
+    public void sendNotification(Context context, int currentVolume, int currentAlarm, int currentMusic, int currentNotif, int NOTIFICATION_ID )  {
 
 
         Intent intent = new Intent(context, SoundVolumeActivity.class); //try
@@ -107,11 +109,16 @@ public class NotificationFunc {
         builder.setAutoCancel(true);
 
         builder.setLargeIcon(bitmap);
-        Log.d(TAG, " notify Volume now " + currentMusic + " "
-                + currentVolume + " " + currentAlarm);
+//        Log.d(TAG, " notify Volume now " + currentMusic + " "
+//                + currentVolume + " " + currentAlarm);
         int id = Process.myPid();
-        builder.setContentTitle("SVN:Ring: "+currentVolume+" Alarm: "+currentAlarm+" Media: "+currentMusic);
-        builder.setContentText("Be aware\n");
+        builder.setContentTitle("Ring: "+currentVolume+" Alarm: "+currentAlarm+" Media: "+currentMusic+
+                " Notif: "+currentNotif);
+        builder.setContentText("Ring: "+currentVolume+" Alarm: "+currentAlarm+" Media: "+currentMusic+
+                " Notif: "+currentNotif + " !!Be aware!!");
+//       builder.setContentTitle("Ring: "+currentVolume+" Alarm: "+currentAlarm);
+//        builder.setContentText(" Media: "+currentMusic+
+//                " Notif: "+currentNotif);
 
         builder.setPriority(Notification.PRIORITY_MAX);
 //        builder.setPriority(Notification.PRIORITY_DEFAULT);

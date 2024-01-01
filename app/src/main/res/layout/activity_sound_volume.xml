@@ -19,6 +19,7 @@
         android:text="@string/btStart"
         android:onClick="startTimer"
         tools:context=".WidgetShowVolumes" />
+
     <Button
         android:id="@+id/btCancel"
         android:layout_width="match_parent"
@@ -27,45 +28,134 @@
         android:text="@string/btCancel"
         android:onClick="cancelTimer"
         tools:context=".WidgetShowVolumes" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/quit_application_by_force_stop"
         android:id="@+id/btQuit"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:onClick="quitApp"/>
 
+    <TextView
+        android:id="@+id/textViewSText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="Spacer"
         android:visibility="invisible" />
 
     <TextView
-        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Adjust Media volume"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:visibility="visible" />
+
+    <SeekBar
+        android:id="@+id/seekBarMedia"
+        style="@style/Widget.AppCompat.SeekBar"
+        android:layout_width="319dp"
+        android:layout_height="wrap_content"
+        android:thumbTint="@color/colorPrimary"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Spacer"
+        android:visibility="invisible" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Adjust Alarm volume"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:visibility="visible" />
+
+    <SeekBar
+        android:id="@+id/seekBarAlarm"
+        style="@style/Widget.AppCompat.SeekBar"
+        android:layout_width="319dp"
+        android:layout_height="wrap_content"
+        android:thumbTint="@color/colorPrimary"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Spacer"
+        android:visibility="invisible" />
+
+<TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Adjust ring volume"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:visibility="visible"
-        tools:text="Adjust ring volume" />
+        android:visibility="visible" />
+
+    <SeekBar
+        android:id="@+id/seekBarRing"
+        style="@style/Widget.AppCompat.SeekBar"
+        android:layout_width="319dp"
+        android:layout_height="wrap_content"
+        android:thumbTint="@color/colorPrimary"/>
 
     <TextView
-        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Spacer"
+        android:visibility="invisible" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Adjust notifiacation  volume"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:visibility="visible" />
+
+    <SeekBar
+        android:id="@+id/seekBarNotif"
+        style="@style/Widget.AppCompat.SeekBar"
+        android:layout_width="319dp"
+        android:layout_height="wrap_content"
+        android:thumbTint="@color/colorPrimary"/>
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:visibility="invisible" />
 
-    <SeekBar
-        android:id="@+id/seekBar"
-        style="@style/Widget.AppCompat.SeekBar"
-        android:layout_width="319dp"
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:max="7"
-        android:thumbTint="@color/colorPrimary"/>
+        android:text="TextView"
+        android:visibility="invisible" />
+
+<!--   <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="TextView"-->
+<!--        android:visibility="invisible" />-->
+
+ <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open Sound settings"
+        android:id="@+id/btCTRLf"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:onClick="openVolumes"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="The manufacturer could modify Settings. Look for Volumes"
+        android:visibility="visible" />
+
 </LinearLayout>

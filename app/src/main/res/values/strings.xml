@@ -6,7 +6,7 @@
     <string name="display_help">Help</string>
     <string name="display_about">About</string>
     <string name="quit_application_by_force_stop">Quit application\n (by Force Stop)</string>
-    <string name="help">The Sound Volume Notifier constantly informs the phone owner about the current volume level
+    <string name="help">(Allow this app to send notifications) \n The Sound Volume Notifier constantly informs the phone owner about the current volume level
         of ring, alarm and media. When you start the application it shows a persistent notification in the status bar.
         A notification icon is generated dynamically and displays the levels of the ring and the alarm.
         The icon also indicates when the media volume is low. If the volume is less than 4, the separator
@@ -21,13 +21,18 @@
         Tips.\n
         - The application checks volumes immediately after its opening.
         Thus, you don’t have to wait a minute to see the current volumes. Just open the Notifier.\n
-        - You can change the ring volume directly in this application.
+        - You can change volumes directly in this application.
     </string>
     <string name="about">\n
-        Version 1.0 (2019)\n\n
+        Version 1.1 (20123)\n\n
         Author: Yury Dubinsky \n\n
         Email: small.mobile.tools@gmail.com \n\n
         This viewer is free and open source. \n\n https://github.com/dyura/SoundVolumeNotify \n\n\n
-        _______________________________________________________________________
+
+        changes in the new version : \n - added controls for all sounds; \n
+            - fixed \"Do Nott Disturb\" crash; \n    - improved consistency in notification update. \n\n
+
+
     </string>
+    <string name="keep">Version 1.0 (2019)\\</string>
 </resources>
