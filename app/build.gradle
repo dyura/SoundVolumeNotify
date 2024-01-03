@@ -1,14 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-//    compileSdkVersion 33  //AGPBI: {"kind":"warning","text":"An API level of 33 is not supported by this compiler. Please use an API level of 30 or earlier
-    compileSdkVersion 30
+    compileSdkVersion 33  //AGPBI: {"kind":"warning","text":"An API level of 33 is not supported by this compiler. Please use an API level of 30 or earlier
 //    compileSdkVersion 26
     defaultConfig {
         applicationId "soundvolume.my.soundvolumenotify"
         minSdkVersion 23
-//        targetSdkVersion 33  // see above
-        targetSdkVersion 30
+        targetSdkVersion 33  // see above
 //        targetSdkVersion 26
         versionCode 1
         versionName "1.1"
