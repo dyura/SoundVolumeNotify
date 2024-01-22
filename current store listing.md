@@ -1,0 +1,6 @@
+You don't want your phone to be too laud in a quit space and too quit in a loud space. To manage the volume, you need to see the current values. However, Android doesn't show current volumes in the status bar. To check volumes, you need to open Sound settings, which is not convenient. The Sound Volume Notifier constantly informs  the phone owner about the current volume level of ring, alarm , notification, and media.  The application starts automatically when the phone boots and shows a  persistent notification in the status bar. The notification icon is dynamically generated and displays the ringer and alarm levels.  The icon also indicates when the media volume is low. If the volume is  less than 4, the separator between the two numbers is changed from a  colon to an underscore. In the notification drawer you can see the exact  value of the media volume along with the ring, notifications, and  alarm volumes. 
+The application checks volumes every minute  and accordingly updates the notification. 
+Additionally,  the main screen has an option to change these four volume.  
+Author: Yury Dubinsky ( small.mobile.tools@gmail.com )
+Version: 2.0 (2024).
+This viewer is free and open source. https://github.com/dyura/SoundVolumeNotify
