@@ -18,6 +18,8 @@ import android.service.notification.StatusBarNotification;
 import android.util.Log;
 import android.widget.Toast;
 
+import static android.app.PendingIntent.FLAG_MUTABLE;
+import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static android.content.Context.NOTIFICATION_SERVICE;
 
 
@@ -26,9 +28,9 @@ import static android.content.Context.NOTIFICATION_SERVICE;
  */
 
 public class NotificationFunc {
-    public int previousVolumeMUSIC=0;
-    public int previousVolumeRING=0;
-    public int previousVolumeALARM=0;
+//    public int previousVolumeMUSIC=0;
+//    public int previousVolumeRING=0;
+//    public int previousVolumeALARM=0;
     public String TAG="NotificationFunc";
 
     public NotificationFunc(){};
@@ -80,7 +82,8 @@ public class NotificationFunc {
 
 
         Intent intent = new Intent(context, SoundVolumeActivity.class); //try
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,intent, 0);  // stopped working after API 28
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,intent, FLAG_MUTABLE);
 
         Notification.Builder builder = new Notification.Builder(context);
         String str;

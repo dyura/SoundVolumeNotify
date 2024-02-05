@@ -30,6 +30,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static android.app.PendingIntent.FLAG_MUTABLE;
 
 
 public class SoundVolumeActivity extends AppCompatActivity {
@@ -37,12 +38,12 @@ public class SoundVolumeActivity extends AppCompatActivity {
     public static final int NOTIFICATION_ID = 1;
     final public static String ONE_TIME = "onetime";
     private static boolean afterStart=false;
-    private static boolean silenceMode =false;
-    private static boolean zenMode=false;  
+    private  boolean silenceMode =false;
+    private  boolean zenMode=false;
 
 	
 
-    private AlarmManagerBroadcastReceiver checkSounds;
+//    private AlarmManagerBroadcastReceiver checkSounds;
     SeekBar seekBarMedia;
     SeekBar seekBarAlarm;
     SeekBar seekBarNotif;
@@ -56,7 +57,7 @@ public class SoundVolumeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_sound_volume);
-        checkSounds = new AlarmManagerBroadcastReceiver();
+//        checkSounds = new AlarmManagerBroadcastReceiver();
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
@@ -184,7 +185,8 @@ public class SoundVolumeActivity extends AppCompatActivity {
        Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
        intent.putExtra("name","main");
        intent.putExtra(ONE_TIME, Boolean.FALSE);
-       PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
+//       PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);  // stopped working after API 28
+       PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, FLAG_MUTABLE);
        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 , pi);
 
        Toast.makeText(context, "STARTING...", Toast.LENGTH_LONG).show();
@@ -225,21 +227,14 @@ public class SoundVolumeActivity extends AppCompatActivity {
         } catch (Settings.SettingNotFoundException e) {
             e.printStackTrace();
         }
-	if (zenValue>0){
-		zenMode=true;
-	}
-	else {
-		zenMode=false;
+	if (zenValue>0) zenMode=true;
+	else zenMode=false;
 		// reset  Set the Text
-	}
         audio = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
-        if (audio.getRingerMode() !=  AudioManager.RINGER_MODE_SILENT ){
-            silenceMode =false;
-        }
-        else {
-            silenceMode =true;
-       }
+        if (audio.getRingerMode() !=  AudioManager.RINGER_MODE_SILENT )  silenceMode =false;
+        else  silenceMode =true;
+
         seekBarRing.setMax(audio.getStreamMaxVolume(AudioManager.STREAM_RING));
         seekBarRing.setProgress(audio.getStreamVolume(AudioManager.STREAM_RING));
         seekBarRing.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
