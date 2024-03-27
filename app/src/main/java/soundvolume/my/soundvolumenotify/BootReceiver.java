@@ -20,7 +20,7 @@ public class BootReceiver extends BroadcastReceiver {
             Intent ABRintent = new Intent(context, AlarmManagerBroadcastReceiver.class);
             ABRintent.putExtra("name","main".toString());
             ABRintent.putExtra(ONE_TIME, Boolean.FALSE);
-            PendingIntent pi = PendingIntent.getBroadcast(context, 0, ABRintent, 0);
+            PendingIntent pi = PendingIntent.getBroadcast(context, 0, ABRintent, PendingIntent.FLAG_IMMUTABLE);
             am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 , pi);
 
         }

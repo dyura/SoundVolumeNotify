@@ -8,13 +8,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.PowerManager;
 import android.provider.Settings;
 import android.provider.Settings.Global;
 import android.service.notification.StatusBarNotification;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,11 +28,12 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-//import android.widget.Button;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.app.PendingIntent.FLAG_MUTABLE;
 
 
@@ -41,9 +45,6 @@ public class SoundVolumeActivity extends AppCompatActivity {
     private  boolean silenceMode =false;
     private  boolean zenMode=false;
 
-	
-
-//    private AlarmManagerBroadcastReceiver checkSounds;
     SeekBar seekBarMedia;
     SeekBar seekBarAlarm;
     SeekBar seekBarNotif;
@@ -51,13 +52,16 @@ public class SoundVolumeActivity extends AppCompatActivity {
     Context context;
     AudioManager audio;
     TextView note;
+    TextView note2;
+    TextView note3;
+    Button btCancel;
+    Button btStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_sound_volume);
-//        checkSounds = new AlarmManagerBroadcastReceiver();
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
@@ -67,6 +71,11 @@ public class SoundVolumeActivity extends AppCompatActivity {
         seekBarRing=findViewById(R.id.seekBarRing);
 
         note=findViewById(R.id.textViewSText);
+        note2=findViewById(R.id.textViewSText2);
+        note3=findViewById(R.id.textViewSText3);
+
+        btCancel=findViewById(R.id.btCancel);
+        btStart=findViewById(R.id.btStart);
 
         seekBarMedia.setOnSeekBarChangeListener(new mySeekBarMediaListener());
         seekBarAlarm.setOnSeekBarChangeListener(new mySeekBarAlarmListener());
@@ -108,12 +117,18 @@ public class SoundVolumeActivity extends AppCompatActivity {
                 alertDialog.setTitle("Help");
                 alertDialog.setMessage(getString(R.string.help));
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
                 alertDialog.show();
+                return true;
+            case R.id.timer_diagnostic:
+                Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
+                PendingIntent pendingintent = PendingIntent.getBroadcast(context, 0,intent,PendingIntent.FLAG_IMMUTABLE|PendingIntent.FLAG_NO_CREATE) ;
+                if  (pendingintent != null)  {Toast.makeText(context, "Timer is up", Toast.LENGTH_LONG).show();}
+                else {Toast.makeText(context, "Timer is down", Toast.LENGTH_LONG).show();}
                 return true;
             case R.id.display_about:
                 TextView showText = new TextView(this);
@@ -126,7 +141,6 @@ public class SoundVolumeActivity extends AppCompatActivity {
                         .setTitle(getString(R.string.app_name))
                         .setCancelable(true)
                         .show();
-//                        .getWindow().setLayout(1600, 1000);
                 return true;
             default:
                 // If we got here, the user's action was not recognized.
@@ -141,11 +155,6 @@ public class SoundVolumeActivity extends AppCompatActivity {
         afterStart=true;
         populateBars();
     }
-
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//    }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -165,53 +174,48 @@ public class SoundVolumeActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    public void onResume(){
-//        super.onResume();
-//        // put your code here...
-//    }
-
-   public void startTimer(View view) {
+    public void startTimer(View view) {
         SetTimer(context);
     }
 
-   public void cancelTimer(View view) {
+    public void cancelTimer(View view) {
         CancelTimer(context);
     }
 
-   public void SetTimer(Context context)
-   {
-       AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-       Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
-       intent.putExtra("name","main");
-       intent.putExtra(ONE_TIME, Boolean.FALSE);
+    public void SetTimer(Context context)
+    {
+        AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
+        intent.putExtra("name","main");
+        intent.putExtra(ONE_TIME, Boolean.FALSE);
 //       PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);  // stopped working after API 28
-       PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, FLAG_MUTABLE);
-       am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 , pi);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, FLAG_IMMUTABLE);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 , pi);
 
-       Toast.makeText(context, "STARTING...", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "STARTING...", Toast.LENGTH_LONG).show();
 
-       NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-       StatusBarNotification[] activeNotifications = notificationManager.getActiveNotifications();
-       if (activeNotifications.length == 0)
-           sn.sendNotification(context, NOTIFICATION_ID);
-   }
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+        StatusBarNotification[] activeNotifications = notificationManager.getActiveNotifications();
+        if (activeNotifications.length == 0)
+            sn.sendNotification(context, NOTIFICATION_ID);
+    }
 
-   public void CancelTimer(Context context)
-   {
-       Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
-       PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
-       AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-       alarmManager.cancel(sender);
+    public void CancelTimer(Context context)
+    {
+        Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
+        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, FLAG_IMMUTABLE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(sender);
+        sender.cancel();
 
-       NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-       StatusBarNotification[] activeNotifications = notificationManager.getActiveNotifications();
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+        StatusBarNotification[] activeNotifications = notificationManager.getActiveNotifications();
 
-       Toast.makeText(context, "Timer Canceled", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Timer Canceled", Toast.LENGTH_LONG).show();
 
-       if (activeNotifications.length !=0)
-               sn.cancelNotification(context,activeNotifications[0].getTag(),NOTIFICATION_ID);
-   }
+        if (activeNotifications.length !=0)
+            sn.cancelNotification(context,activeNotifications[0].getTag(),NOTIFICATION_ID);
+    }
 
     public void quitApp(View view){
         Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
@@ -221,19 +225,35 @@ public class SoundVolumeActivity extends AppCompatActivity {
 
     protected void populateBars() {
 
-        int zenValue= 0;
+        int zenValue = 0;
         try {
-            zenValue = Global.getInt(getContentResolver(),"zen_mode");
+            zenValue = Global.getInt(getContentResolver(), "zen_mode");
         } catch (Settings.SettingNotFoundException e) {
             e.printStackTrace();
         }
-	if (zenValue>0) zenMode=true;
-	else zenMode=false;
-		// reset  Set the Text
+
+        if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) {
+            note2.setTextColor(Color.RED);
+            note2.setText("Allow notifications in App Info!");
+        } else note2.setText("");
+//            Toast.makeText(context, "no permissions", Toast.LENGTH_LONG).show();
+
+        PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+        if((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)  && !pm.isIgnoringBatteryOptimizations(getPackageName()))   {
+            note3.setTextColor(Color.RED);
+            note3.setText("It is preferable to set unrestricted battery mode in App Info!. See Help");
+//                Toast.makeText(context, "isIgnoringBatteryOptimizations", Toast.LENGTH_LONG).show();
+        }
+        else
+            note3.setText("");
+
+
+        if (zenValue > 0) zenMode = true;
+        else zenMode = false;
         audio = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
-        if (audio.getRingerMode() !=  AudioManager.RINGER_MODE_SILENT )  silenceMode =false;
-        else  silenceMode =true;
+        if (audio.getRingerMode() != AudioManager.RINGER_MODE_SILENT) silenceMode = false;
+        else silenceMode = true;
 
         seekBarRing.setMax(audio.getStreamMaxVolume(AudioManager.STREAM_RING));
         seekBarRing.setProgress(audio.getStreamVolume(AudioManager.STREAM_RING));
@@ -248,28 +268,35 @@ public class SoundVolumeActivity extends AppCompatActivity {
         seekBarNotif.setProgress(audio.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
         seekBarNotif.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
 
-       if ( zenMode)  {
-	     seekBarRing.setEnabled(false);
-	     seekBarMedia.setEnabled(false);
-	     seekBarAlarm.setEnabled(false);
-	     seekBarNotif.setEnabled(false);
-	     note.setText("\"Do Not Disturb\" mode. Open \"Sound Settings\" and try there");
-       }
-       else if (silenceMode) {
-           seekBarRing.setEnabled(false);
-           seekBarNotif.setEnabled(false);
-           seekBarMedia.setEnabled(true);
-           seekBarAlarm.setEnabled(true);
-           note.setText("Ringer is silenced. Open \"Sound Settings\" to change");
-       } else {
-           seekBarRing.setEnabled(true);
-           seekBarMedia.setEnabled(true);
-           seekBarAlarm.setEnabled(true);
-           seekBarNotif.setEnabled(true);
-           note.setText("");
-       }
+        if (zenMode) {
+            seekBarRing.setEnabled(false);
+            seekBarMedia.setEnabled(false);
+            seekBarAlarm.setEnabled(false);
+            seekBarNotif.setEnabled(false);
+            note.setText("\"Do Not Disturb\" mode. Open \"Sound Settings\" and try there");
+        } else if (silenceMode) {
+            seekBarRing.setEnabled(false);
+            seekBarNotif.setEnabled(false);
+            seekBarMedia.setEnabled(true);
+            seekBarAlarm.setEnabled(true);
+            note.setText("Ringer is silenced. Open \"Sound Settings\" to change");
+        } else {
+            seekBarRing.setEnabled(true);
+            seekBarMedia.setEnabled(true);
+            seekBarAlarm.setEnabled(true);
+            seekBarNotif.setEnabled(true);
+            note.setText("");
+        }
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         StatusBarNotification[] activeNotifications = notificationManager.getActiveNotifications();
+
+        Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
+        PendingIntent pendingintent = PendingIntent.getBroadcast(context, 0,intent,PendingIntent.FLAG_IMMUTABLE|PendingIntent.FLAG_NO_CREATE) ;
+        if  (pendingintent == null)
+            btCancel.setBackgroundColor(Color.GRAY);
+        else
+            btCancel.setBackgroundResource(android.R.drawable.btn_default);
+
         if (activeNotifications.length != 0)
             sn.sendNotification(context, NOTIFICATION_ID);
 
@@ -277,7 +304,7 @@ public class SoundVolumeActivity extends AppCompatActivity {
 
     public void openVolumes(View vie) {  // Android API 26 Platform >
         Intent intent =new Intent(android.provider.Settings.ACTION_SOUND_SETTINGS);
-            startActivityForResult(intent, 0);
+        startActivityForResult(intent, 0);
     }
 
     private class mySeekBarRingListener implements SeekBar.OnSeekBarChangeListener {
@@ -294,7 +321,7 @@ public class SoundVolumeActivity extends AppCompatActivity {
             boolean checkNotif = false;
             if (audio.getStreamVolume(AudioManager.STREAM_RING) == audio.getStreamVolume(AudioManager.STREAM_NOTIFICATION)) {
                 checkNotif = true;
-            }     // It could be set to the Ring value by system
+            }     // It could be set  (the Ring value) by system
 
             try {
                 audio.setStreamVolume(AudioManager.STREAM_RING, seekBar.getProgress(), 0);
@@ -350,8 +377,8 @@ public class SoundVolumeActivity extends AppCompatActivity {
                 audio.setStreamVolume(AudioManager.STREAM_ALARM, seekBar.getProgress(), 0);
             } catch (Exception e) {
                 Toast.makeText(context, "Alarm: " + e, Toast.LENGTH_LONG).show();
-                seekBarAlarm.setProgress(audio.getStreamVolume(AudioManager.STREAM_MUSIC));
             }
+            seekBarAlarm.setProgress(audio.getStreamVolume(AudioManager.STREAM_ALARM)); // workaround for weird Android behaviour and bug)     
             sn.sendNotification(context, NOTIFICATION_ID);
         }
 
@@ -384,7 +411,5 @@ public class SoundVolumeActivity extends AppCompatActivity {
 
             sn.sendNotification(context, NOTIFICATION_ID);
         }
-
     }
-
 }

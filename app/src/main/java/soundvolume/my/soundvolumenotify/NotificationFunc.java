@@ -12,12 +12,17 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Icon;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import android.media.AudioManager;
 import android.os.Process;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
 import android.widget.Toast;
 
+import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.app.PendingIntent.FLAG_MUTABLE;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static android.content.Context.NOTIFICATION_SERVICE;
@@ -28,12 +33,9 @@ import static android.content.Context.NOTIFICATION_SERVICE;
  */
 
 public class NotificationFunc {
-//    public int previousVolumeMUSIC=0;
-//    public int previousVolumeRING=0;
-//    public int previousVolumeALARM=0;
     public String TAG="NotificationFunc";
 
-    public NotificationFunc(){};
+    public NotificationFunc(){}
     public void sendNotification(Context context, int NOTIFICATION_ID) {
         AudioManager audio = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         final int currentVolumeRING = audio.getStreamVolume(AudioManager.STREAM_RING);
@@ -41,7 +43,6 @@ public class NotificationFunc {
         final int currentVolumeMUSIC = audio.getStreamVolume(AudioManager.STREAM_MUSIC);
         final int currentVolumeNOTIF = audio.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
 
-//        String next_tag =String.valueOf(currentVolumeRING) +  String.valueOf(currentVolumeALARM) + String.valueOf(currentVolumeMUSIC);
         String next_title ="Ring: "+currentVolumeRING+" Alarm: "+currentVolumeALARM+" Media: "+currentVolumeMUSIC+
                 " Notif: "+currentVolumeNOTIF;
 
@@ -49,19 +50,17 @@ public class NotificationFunc {
         StatusBarNotification[] activeNotifications = notificationManager.getActiveNotifications();
 //        Log.d(TAG, "# notifications "+Integer.toString(activeNotifications.length));
 
-//        String current_tag="";
         String current_title="";
         switch (activeNotifications.length){
             case  0:
                 break;
             case 1:
-//                current_tag=activeNotifications[0].getTag();
                 current_title = activeNotifications[0].getNotification().extras.getString("android.title");
 //                Log.d("notification:",current_title);//getNotification().toString();
                 break;
             default:
-                Log.e("notification:","Multiple notificatons");
-                Toast.makeText(context,"Multiple notificatons, report the problem",Toast.LENGTH_LONG).show();
+                Log.e("notification:","Multiple notifications");
+                Toast.makeText(context,"Multiple notifications, report the problem",Toast.LENGTH_LONG).show();
                 current_title = activeNotifications[0].getNotification().extras.getString("android.title");
 
         }
@@ -83,7 +82,7 @@ public class NotificationFunc {
 
         Intent intent = new Intent(context, SoundVolumeActivity.class); //try
 //        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,intent, 0);  // stopped working after API 28
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,intent, FLAG_MUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,intent, FLAG_IMMUTABLE);
 
         Notification.Builder builder = new Notification.Builder(context);
         String str;
@@ -93,7 +92,6 @@ public class NotificationFunc {
             str=currentVolume+"_"+currentAlarm;
         Bitmap bitmap =createBitmapFromString(str);
         Icon icn1;
-        /* temporary commented out */
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             int height = bitmap.getHeight();
             int width = bitmap.getWidth();
@@ -114,14 +112,13 @@ public class NotificationFunc {
         builder.setLargeIcon(bitmap);
 //        Log.d(TAG, " notify Volume now " + currentMusic + " "
 //                + currentVolume + " " + currentAlarm);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm 'D:'d", Locale.getDefault());
+        String currentDateandTime = sdf.format(new Date());
         int id = Process.myPid();
         builder.setContentTitle("Ring: "+currentVolume+" Alarm: "+currentAlarm+" Media: "+currentMusic+
                 " Notif: "+currentNotif);
         builder.setContentText("Ring: "+currentVolume+" Alarm: "+currentAlarm+" Media: "+currentMusic+
-                " Notif: "+currentNotif + " !!Be aware!!");
-//       builder.setContentTitle("Ring: "+currentVolume+" Alarm: "+currentAlarm);
-//        builder.setContentText(" Media: "+currentMusic+
-//                " Notif: "+currentNotif);
+                " Notif: "+currentNotif + " [" + currentDateandTime + "]");
 
         builder.setPriority(Notification.PRIORITY_MAX);
 //        builder.setPriority(Notification.PRIORITY_DEFAULT);

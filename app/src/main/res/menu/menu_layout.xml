@@ -5,6 +5,9 @@
         <item android:id="@+id/display_help"
             android:title="@string/display_help"
             />
+        <item android:id="@+id/timer_diagnostic"
+            android:title="Timer Diagnostic"
+            />
         <item android:id="@+id/display_about"
             android:title="@string/display_about"
             />

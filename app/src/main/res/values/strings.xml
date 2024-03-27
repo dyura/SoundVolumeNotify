@@ -5,7 +5,7 @@
     <string name="btStart">Start Repeating Timer</string>
     <string name="display_help">Help</string>
     <string name="display_about">About</string>
-    <string name="quit_application_by_force_stop">Quit application\n (by Force Stop)</string>
+    <string name="quit_application_by_force_stop">App Info:\n (Quit application  by Force Stop)</string>
     <string name="help">(Allow this app to send notifications) \n The Sound Volume Notifier constantly informs the phone owner about the current volume level
         of ring, alarm and media. When you start the application it shows a persistent notification in the status bar.
         A notification icon is generated dynamically and displays the levels of the ring and the alarm.
@@ -21,17 +21,23 @@
         Tips.\n
         - The application checks volumes immediately after its opening.
         Thus, you don’t have to wait a minute to see the current volumes. Just open the Notifier.\n
-        - You can change volumes directly in this application.
+        - You can change volumes directly in this application. \n
+        - To keep the notification at the top of the notification list, set "volume notification" notification channel as "Pin to top".\n
+        - To make the timer consistent set unrestricted battery mode.
+        Read the instruction on the app web page. The link is in the “About” section.
+        More info is on the app Web page.
     </string>
     <string name="about">\n
-        Version 2.0 (Jan 20124\n\n
+        Version 2.1 (Mar 20124\n\n
         Author: Yury Dubinsky \n\n
         Email: small.mobile.tools@gmail.com \n\n
-        This viewer is free and open source. \n\n https://github.com/dyura/SoundVolumeNotify \n\n\n
+        This app is free and open source. \n\n https://github.com/dyura/SoundVolumeNotify \n\n\n
 
         changes in the new version : \n - added controls for all sounds; \n
-            - fixed \"Do Nott Disturb\" crash; \n    - improved consistency in notification update. \n\n
-
+            - fixed \"Do Nott Disturb\" crash; \n    - improved consistency in notification update. \n
+        - other improvements \n\n
+        Application Info and Tips: \n https://sites.google.com/view/tipsforusingsoundvolumenotifie/home \n
+        (Text can be copied)
 
     </string>
     <string name="keep">Version 1.0 (2019)\\</string>
