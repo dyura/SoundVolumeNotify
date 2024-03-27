@@ -378,7 +378,7 @@ public class SoundVolumeActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Toast.makeText(context, "Alarm: " + e, Toast.LENGTH_LONG).show();
             }
-            seekBarAlarm.setProgress(audio.getStreamVolume(AudioManager.STREAM_ALARM)); // workaround for weird Android behaviour and bug)     
+            seekBarAlarm.setProgress(audio.getStreamVolume(AudioManager.STREAM_ALARM)); // workaround for weird Android behaviour and bug)
             sn.sendNotification(context, NOTIFICATION_ID);
         }
 
