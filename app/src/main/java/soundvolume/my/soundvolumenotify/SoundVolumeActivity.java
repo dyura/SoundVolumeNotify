@@ -130,6 +130,27 @@ public class SoundVolumeActivity extends AppCompatActivity {
                 if  (pendingintent != null)  {Toast.makeText(context, "Timer is up", Toast.LENGTH_LONG).show();}
                 else {Toast.makeText(context, "Timer is down", Toast.LENGTH_LONG).show();}
                 return true;
+//  If you want to see the next alarm on your device
+//            case R.id.alarm_diagnostic:
+//                AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+//                AlarmManager.AlarmClockInfo aci = am.getNextAlarmClock();
+//                AlertDialog alertDialog2 = new AlertDialog.Builder(SoundVolumeActivity.this).create();
+//                alertDialog2.setTitle("Next Alarm in the System");
+//                alertDialog2.setMessage(getString(R.string.help));
+//                alertDialog2.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//                            }
+//                        });
+//                if (aci==null)
+//                    alertDialog2.setMessage("no alarm");
+////                Toast.makeText(context, "no alarm", Toast.LENGTH_LONG).show();
+//                else
+//                    alertDialog2.setMessage("next alarm at: \n" + aci.toString());
+////                    Toast.makeText(context, "next alarm at: " + aci.toString(), Toast.LENGTH_LONG).show();
+//                alertDialog2.show();
+//                return true;             
             case R.id.display_about:
                 TextView showText = new TextView(this);
                 showText.setText(getString(R.string.about));
