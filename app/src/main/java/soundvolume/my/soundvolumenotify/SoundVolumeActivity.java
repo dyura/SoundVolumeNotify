@@ -191,6 +191,15 @@ public class SoundVolumeActivity extends AppCompatActivity {
 //       PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);  // stopped working after API 28
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, FLAG_IMMUTABLE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 , pi);
+//  If you don't want to use setRepeating, you can use a chain of single timers.  Either AlarmManager.set  or  AlarmManager. setExact
+//   am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+1000*60, pi);
+//   am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+1000*60, pi);
+//                     setExact doesn't show any difference in this app comparing to set. It just requires starting with Android 14 to add  the following permissions in Manifest
+//         <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+//          <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
+//  To use the chain of timers you need to uncomment SoundVolumeActivity.SetTimer in BroadcustReceiver .
+//  To call SoundVolumeActivity.SetTimer, you  need to make SetTimer static
+//   Also you need to replace  setRepeating in BootReceiver
 
         Toast.makeText(context, "STARTING...", Toast.LENGTH_LONG).show();
 

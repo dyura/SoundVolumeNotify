@@ -22,6 +22,10 @@ public class BootReceiver extends BroadcastReceiver {
             ABRintent.putExtra(ONE_TIME, Boolean.FALSE);
             PendingIntent pi = PendingIntent.getBroadcast(context, 0, ABRintent, PendingIntent.FLAG_IMMUTABLE);
             am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 , pi);
+//  If you don't want to use setRepeating, you can use a chain of single timers.  Either AlarmManager.set  or  AlarmManager. setExact
+//   am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+1000*60, pi);
+//   am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+1000*60, pi);
+//    Read related comments in SoundVolumeActivity code
 
         }
     }

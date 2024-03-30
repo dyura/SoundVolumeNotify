@@ -15,7 +15,6 @@
         android:id="@+id/btStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_medium"
         android:text="@string/btStart"
         android:onClick="startTimer"
         tools:context=".WidgetShowVolumes" />
@@ -24,7 +23,6 @@
         android:id="@+id/btCancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_medium"
         android:text="@string/btCancel"
         android:onClick="cancelTimer"
         tools:context=".WidgetShowVolumes" />
@@ -159,5 +157,4 @@
         android:layout_height="wrap_content"
         android:text="The manufacturer could modify Settings. Look for Volumes"
         android:visibility="visible" />
-
 </LinearLayout>

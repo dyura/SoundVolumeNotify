@@ -20,6 +20,9 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String name=intent.getStringExtra("name");
 //        Log.d(TAG,name);
+//  If you don't use setRepeating, read related comments in SoundVolumeActivity
+//  uncomment the line bellow.
+//        SoundVolumeActivity.SetTimer(context);
         SoundVolumeActivity.sn.sendNotification(context,SoundVolumeActivity.NOTIFICATION_ID);
     }
 }
